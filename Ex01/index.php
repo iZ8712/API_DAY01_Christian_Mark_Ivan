@@ -10,13 +10,13 @@
 <body>
 
 <div class="container-fluid">
-
 <div class="row justify-content-around">
 
 
 <?php 
 
 require_once 'RESTful.php';
+
 $url = 'http://feeds.bbci.co.uk/news/technology/rss.xml';
 $response = curl_get($url);
 $xml = simplexml_load_string($response);
@@ -25,17 +25,27 @@ foreach ($xml->channel->item as $item) {
     <h5 class="card-title"><a href="'.$item->link.'" target"_blank">'.$item->title.'</a></h5>
     <p class="card-text">'.$item->description.'</p></div></div>';
 }
+?>
 
+</div>
+<div class="row justify-content-around">
 
+<?php
+$url = 'http://api.serri.codefactory.live/random/';
+$response = curl_get($url);
+$json = json_decode($response);
+$joke = $json->joke;
+$id = $json->id_joke;
 
+//var_dump($json->joke);
+echo '<div class="card" style="width: 18rem;"><div class="card-body">
+<h5 class="card-title">Serri\'s joke No.'.$id.'</h5>
+<p class="card-text">'.$joke.'</p></div></div>';
 
 ?>
 
 
 </div>
-
-
-
 </div>
 
 
